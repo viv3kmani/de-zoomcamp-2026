@@ -1,0 +1,28 @@
+helperfiles/
+*.log
+.DS_Store
+node_modules/
+.env
+dist/
+build/
+.idea/
+.vscode/
+*.bak
+*.tmp
+*.swp
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+venv/
+env/
+
+# Data Science
+*.csv
+*.parquet
+*.pkl
+.ipynb_checkpoints/
+data/
