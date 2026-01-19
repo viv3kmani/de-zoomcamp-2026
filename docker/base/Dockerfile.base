@@ -1,0 +1,22 @@
+# Base image with corporate CA certificates pre-installed
+FROM python:3.12-slim
+
+# Extract and install corporate CA certificates automatically
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    openssl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy pre-extracted corporate CA certificate
+COPY hexaware-ca.crt /usr/local/share/ca-certificates/hexaware-ca.crt
+RUN update-ca-certificates
+
+# Install common tools with SSL configured
+RUN pip install --upgrade pip uv
+
+# Set SSL environment variables for all tools
+ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+ENV UV_NATIVE_TLS=1
+ENV NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+ENV GIT_SSL_CAINFO=/etc/ssl/certs/ca-certificates.crt

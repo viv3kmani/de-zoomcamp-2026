@@ -10,7 +10,8 @@ build/
 *.bak
 *.tmp
 *.swp
-
+*.crt
+scripts/
 # Python
 __pycache__/
 *.pyc
