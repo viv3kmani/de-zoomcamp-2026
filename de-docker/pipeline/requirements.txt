@@ -1,2 +1,6 @@
 pandas
 pyarrow
+sqlalchemy
+psycopg2-binary
+click
+tqdm

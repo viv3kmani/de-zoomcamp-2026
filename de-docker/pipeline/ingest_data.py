@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import ssl
+import urllib.request
 
+# Disable SSL certificate verification for corporate proxy environments
+ssl._create_default_https_context = ssl._create_unverified_context
 
 import click
 import pandas as pd
