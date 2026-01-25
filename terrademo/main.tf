@@ -13,37 +13,32 @@ provider "google" {
   region      = var.region
 }
 
-variable "project_id" {
-  description = "The GCP project ID"
-  type        = string
-  default     = "de-zoomcamp-26-485316"
-}
-
-variable "region" {
-  description = "The GCP region"
-  type        = string
-  default     = "us-central1"
-}
 
 resource "google_storage_bucket" "demo-bucket" {
-    name          = "${var.project_id}-bucket"
-    location      = var.region
-    force_destroy = true
+  name          = "${var.project_id}-bucket"
+  location      = var.location
+  force_destroy = true
 
-    # lifecycle_rule {
-    #     action {
-    #         type = "Delete"
-    #     }
-    #     condition {
-    #         age = 3
-    #     }
-    # }
-    lifecycle_rule {
-        action {
-            type = "AbortIncompleteMultipartUpload"
-        }
-        condition {
-            age = 1
-        }
+  # lifecycle_rule {
+  #     action {
+  #         type = "Delete"
+  #     }
+  #     condition {
+  #         age = 3
+  #     }
+  # }
+  lifecycle_rule {
+    action {
+      type = "AbortIncompleteMultipartUpload"
     }
+    condition {
+      age = 1
+    }
+  }
+}
+
+resource "google_bigquery_dataset" "dataset" {
+  dataset_id                 = var.bq_dataset_name
+  description                = "Demo BigQuery dataset"
+  delete_contents_on_destroy = true
 }
