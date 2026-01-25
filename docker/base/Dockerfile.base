@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy pre-extracted corporate CA certificate
-COPY hexaware-ca.crt /usr/local/share/ca-certificates/hexaware-ca.crt
+COPY corporate-ca.crt /usr/local/share/ca-certificates/hexaware-ca.crt
 RUN update-ca-certificates
 
 # Install common tools with SSL configured
