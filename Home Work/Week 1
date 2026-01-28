@@ -1,0 +1,74 @@
+Question 1. Understanding Docker images
+
+25.3
+
+Question 2. Understanding Docker networking and docker-compose
+
+postgres:5432
+
+Question 3. Counting short trips
+
+8007
+
+
+WITH t1 AS (
+    SELECT * FROM public."green_tripdata_2025-11"
+)
+
+SELECT count(*) FROM t1 
+WHERE CAST(lpep_pickup_datetime AS DATE) >= '2025-11-01' 
+AND CAST(lpep_pickup_datetime AS DATE) < '2025-12-01'
+and trip_distance <= 1
+
+
+Question 4. Longest trip for each day
+2025-11-14
+
+SELECT CAST(lpep_pickup_datetime AS DATE) as trip_date, *
+FROM public."green_tripdata_2025-11"
+WHERE lpep_pickup_datetime >= '2025-11-01' 
+  AND lpep_pickup_datetime < '2025-12-01'
+  AND trip_distance < 100
+ORDER BY trip_distance DESC
+ LIMIT 1;
+
+Question 5. Biggest pickup zone
+Which was the pickup zone with the largest total_amount (sum of all trips) on November 18th, 2025?
+
+ East Harlem North
+
+ 
+SELECT t2."Zone", SUM(t1.fare_amount) as trip_amount 
+FROM public."green_tripdata_2025-11" as t1
+LEFT JOIN public.zones as t2 
+  ON t1."PULocationID" = t2."LocationID"
+WHERE t1.lpep_pickup_datetime >= '2025-11-18' 
+  AND t1.lpep_pickup_datetime < '2025-11-19'
+GROUP BY 1 
+ORDER BY 2 DESC;
+
+Question 6. Largest tip
+For the passengers picked up in the zone named "East Harlem North" in November 2025, which was the drop off zone that had the largest tip?
+
+Note: "it's tip , not trip. We need the name of the zone, not the ID.
+Yorkville West"
+
+
+
+SELECT t3."Zone" as "DropZone",
+       MAX(t1."tip_amount") as max_tip
+FROM public."green_tripdata_2025-11" as t1
+INNER JOIN public.zones as t2  
+  ON t1."PULocationID" = t2."LocationID"
+LEFT JOIN public.zones as t3
+  ON t1."DOLocationID" = t3."LocationID"  -- ✅ Fixed: t3 not t2
+WHERE t2."Zone" = 'East Harlem North'
+  AND t1.lpep_pickup_datetime >= '2025-11-01' 
+  AND t1.lpep_pickup_datetime < '2025-12-01'
+GROUP BY 1
+ORDER BY 2 DESC LIMIT 1;
+	   
+
+Question 7. Terraform Workflow
+
+terraform init, terraform apply -auto-approve, terraform destroy
