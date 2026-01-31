@@ -58,6 +58,8 @@ services:
       - pg-network
 
   kestra:
+    env_file:
+      - ./keys/.env_encoded
     image: kestra/kestra:v1.1
     pull_policy: always
     # Note that this setup with a root user is intended for development purpose.
@@ -81,12 +83,12 @@ services:
           server:
             basicAuth:
               username: "admin@kestra.io" # it must be a valid email address
-              password: Admin1234
+              password:  k3str4
           repository:
             type: postgres
           storage:
             type: local
-            local:
+            local: 
               basePath: "/app/storage"
           queue:
             type: postgres
@@ -101,7 +103,7 @@ services:
       - pg-network
     depends_on:
       kestra_postgres:
-        condition: service_started
+        condition: service_healthy
 
 
 
