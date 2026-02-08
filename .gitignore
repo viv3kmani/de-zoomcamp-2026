@@ -45,3 +45,6 @@ crash.*.log
 terraform.rc
 terrademo/keys/
 *.json
+
+# Kestra secrets
+de-docker/pipeline/keys/.env_encoded
