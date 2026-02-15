@@ -61,8 +61,9 @@ models:
         description: "Numeric code signifying how the passenger paid. 1= Credit card, 2= Cash, 3= No charge, 4= Dispute."
         tests:
           - accepted_values:
-              values: "{{var('payment_type_values')}}"
+              values: "{{ var('payment_type_values') }}"
               severity: warn
+              quote: false  # Added to ensure int64 comparison works correctly
 
       - name: pickup_borough
         data_type: string
