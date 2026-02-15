@@ -48,3 +48,6 @@ terrademo/keys/
 
 # Kestra secrets
 de-docker/pipeline/keys/.env_encoded
+
+
+!analytics_engineering/taxi_rides_ny/seeds/taxi_zone_lookup.csv
