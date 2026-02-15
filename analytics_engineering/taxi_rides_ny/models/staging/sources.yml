@@ -5,7 +5,7 @@ sources:
       {%- if target.type == 'bigquery' -%}
         {{ env_var('GCP_PROJECT_ID', 'de-zoomcamp-26-485316') }}
       {%- else -%}
-        taxi_rides_ny
+        prod
       {%- endif -%}
     schema: |
       {%- if target.type == 'bigquery' -%}
@@ -98,3 +98,8 @@ sources:
             description: Improvement surcharge
           - name: total_amount
             description: Total amount charged
+
+      - name: fhv_tripdata
+        description: Raw yellow taxi trip records
+        loaded_at_field: pickup_datetime
+
