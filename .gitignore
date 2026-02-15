@@ -51,3 +51,4 @@ de-docker/pipeline/keys/.env_encoded
 
 
 !analytics_engineering/taxi_rides_ny/seeds/taxi_zone_lookup.csv
+!analytics_engineering/taxi_rides_ny/seeds/payment_type_lookup.csv

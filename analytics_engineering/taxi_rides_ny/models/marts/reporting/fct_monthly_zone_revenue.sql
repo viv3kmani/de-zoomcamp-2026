@@ -15,6 +15,7 @@ select
     sum(extra) as revenue_monthly_extra,
     sum(mta_tax) as revenue_monthly_mta_tax,
     sum(tip_amount) as revenue_monthly_tip_amount,
+    sum(tolls_amount) as revenue_monthly_tolls_amount,
     sum(ehail_fee) as revenue_monthly_ehail_fee,
     sum(improvement_surcharge) as revenue_monthly_improvement_surcharge,
     sum(total_amount) as revenue_monthly_total_amount,
@@ -24,5 +25,5 @@ select
     avg(passenger_count) as avg_monthly_passenger_count,
     avg(trip_distance) as avg_monthly_trip_distance
 
-from {{ ref('fact_trips') }}
+from {{ ref('fct_trips') }}
 group by pickup_zone, revenue_month, service_type

@@ -1,12 +1,10 @@
 with source as (
-    select * from {{ source('taxidata', 'yellow_tripdata') }}
+    select * from {{ source('raw', 'yellow_tripdata') }}
 ),
 
 renamed as (
     select
         -- identifiers (standardized naming for consistency across yellow/green)
-         "yellow" as service_type,
-        {{ dbt_utils.generate_surrogate_key(['vendorid','tpep_pickup_datetime'])}} as trip_id,
         cast(vendorid as integer) as vendor_id,
         cast(ratecodeid as integer) as rate_code_id,
         cast(pulocationid as integer) as pickup_location_id,
@@ -20,19 +18,16 @@ renamed as (
         cast(store_and_fwd_flag as string) as store_and_fwd_flag,
         cast(passenger_count as integer) as passenger_count,
         cast(trip_distance as numeric) as trip_distance,
-        cast(1 as integer) as trip_type,
-    
+
         -- payment info
         cast(fare_amount as numeric) as fare_amount,
         cast(extra as numeric) as extra,
         cast(mta_tax as numeric) as mta_tax,
         cast(tip_amount as numeric) as tip_amount,
         cast(tolls_amount as numeric) as tolls_amount,
-        cast(0 as numeric) as ehail_fee,
         cast(improvement_surcharge as numeric) as improvement_surcharge,
         cast(total_amount as numeric) as total_amount,
-        cast(payment_type as integer) as payment_type,
-        {{ get_payment_type_description( 'payment_type' ) }} as payment_type_description,
+        cast(payment_type as integer) as payment_type
 
     from source
     -- Filter out records with null vendor_id (data quality requirement)
@@ -41,7 +36,7 @@ renamed as (
 
 select * from renamed
 
--- -- Sample records for dev environment using deterministic date filter
--- {% if target.name == 'dev' %}
--- where pickup_datetime >= '2019-01-01' and pickup_datetime < '2019-02-01'
--- {% endif %}
+-- Sample records for dev environment using deterministic date filter
+{% if target.name == 'dev' %}
+where pickup_datetime >= '2019-01-01' and pickup_datetime < '2019-02-01'
+{% endif %}

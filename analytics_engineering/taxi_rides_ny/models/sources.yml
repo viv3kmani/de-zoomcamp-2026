@@ -1,8 +1,0 @@
-sources:
-  - name: taxidata
-    database: de-zoomcamp-26-485316
-    schema: zoomcamp
-
-    tables:
-      - name: green_tripdata
-      - name: yellow_tripdata
