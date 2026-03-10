@@ -1,0 +1,33 @@
+# Data
+data/
+notebooks/fhvhv/
+
+# Spark output
+*.crc
+_SUCCESS
+wc
+notebooks/wc
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.python-version
+
+# Jupyter
+.ipynb_checkpoints/
+Untitled.ipynb
+notebooks/Untitled.ipynb
+!notebooks/**/*.ipynb
+
+# Logs
+wget-log
+wget-log.*
+*.log
+
+# Scratch files
+notes
+notebooks/notes
+
+# uv
+uv.lock

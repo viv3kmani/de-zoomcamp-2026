@@ -28,6 +28,13 @@ env/
 *.pkl
 .ipynb_checkpoints/
 data/
+*.crc
+_SUCCESS
+wget-log
+wget-log.*
+*:Zone.Identifier
+*.csv.1
+spark-warehouse/
 
 # Terraform
 .terraform/
@@ -52,3 +59,8 @@ de-docker/pipeline/keys/.env_encoded
 
 !analytics_engineering/taxi_rides_ny/seeds/taxi_zone_lookup.csv
 !analytics_engineering/taxi_rides_ny/seeds/payment_type_lookup.csv
+.bruin.yml
+
+# Keep coursework and notebooks trackable
+!Home Work/**/*.md
+!spark/notebooks/**/*.ipynb
